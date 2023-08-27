@@ -26,9 +26,42 @@ apt install nano net-tools uuid-runtime wget openssl -y
 mkdir ~/tuic
 cd ~/tuic
 
-# Download TUIC server binary
-wget -O tuic-server https://github.com/EAimTY/tuic/releases/download/tuic-server-1.0.0/tuic-server-1.0.0-x86_64-unknown-linux-gnu
+# Detect server architecture
+ARCH=$(uname -m)
+if [ "$ARCH" = "x86_64" ]; then
+    TUIC_ARCH="x86_64-unknown-linux-gnu"
+elif [ "$ARCH" = "aarch64" ]; then
+    TUIC_ARCH="aarch64-unknown-linux-gnu"
+else
+    echo "Unsupported architecture: $ARCH"
+    exit 1
+fi
+
+# Fetch all releases from the GitHub API
+ALL_VERSIONS=$(curl -s "https://api.github.com/repos/EAimTY/tuic/releases" | jq -r '.[].tag_name')
+
+# Find the latest TUIC server version
+LATEST_SERVER_VERSION=""
+for VERSION in $ALL_VERSIONS; do
+    if [[ "$VERSION" == *"tuic-server-"* && "$VERSION" =~ ^tuic-server-[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        LATEST_SERVER_VERSION=$VERSION
+        break
+    fi
+done
+
+if [ -z "$LATEST_SERVER_VERSION" ]; then
+    echo "No TUIC server version found in GitHub releases."
+    exit 1
+fi
+
+
+# Construct the URL for the latest TUIC server binary
+TUIC_URL="https://github.com/EAimTY/tuic/releases/download/$LATEST_SERVER_VERSION/$LATEST_SERVER_VERSION-$TUIC_ARCH"
+
+# Download the latest TUIC server binary
+wget -O tuic-server "$TUIC_URL"
 chmod 755 tuic-server
+
 
 # Generate certificate
 openssl ecparam -genkey -name prime256v1 -out ca.key
