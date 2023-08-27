@@ -149,7 +149,10 @@ if [ $? -ne 0 ]; then
     echo "Error: Failed to get IPv6 address" 
     return
 fi
-
+# Get tuic service manager
+wget --no-check-certificate -O /usr/bin/tuic https://raw.githubusercontent.com/hrostami/tuic-setup/master/tuic.sh
+chmod +x /usr/local/tuic/tuic.sh
+chmod +x /usr/bin/tuic
 # Generate and print URLs
 IPV4_URL="tuic://$UUID:$PASSWORD@$IPV4:$PORT/?congestion_control=$CONGESTION_CONTROL&udp_relay_mode=native&alpn=h3%2Cspdy%2F3.1&allow_insecure=1"
 
