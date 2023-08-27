@@ -157,7 +157,7 @@ if [ $? -ne 0 ]; then
     return
 fi
 # Get tuic service manager
-wget --no-check-certificate -O /usr/bin/tuic https://raw.githubusercontent.com/hrostami/tuic-setup/master/tuic.sh
+wget --no-check-certificate -O /usr/bin/tuic https://raw.githubusercontent.com/ErfanTech/tuic-setup/master/tuic.sh
 chmod +x /usr/local/tuic/tuic.sh
 chmod +x /usr/bin/tuic
 # Generate and print URLs
