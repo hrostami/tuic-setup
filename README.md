@@ -17,3 +17,14 @@ To use the script:
 3. The script will install dependencies, generate certs, create a config, and start the TUIC service
 
 4. Your TUIC credentials and server info will be printed at the end
+   
+5. Run this command to manage the service
+   ```
+   tuic
+   ```
+   -Service Status
+   -Restart Service
+   -Add New User
+   -List All Users
+   -Delete User
+   -Get config url
