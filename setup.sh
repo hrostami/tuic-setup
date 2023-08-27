@@ -1,12 +1,19 @@
 #!/bin/bash
 # Install jq if not already installed
-if ! command -v jq &>/dev/null; then
-    echo "Installing jq..."
-    if ! sudo apt-get install jq -y; then
-        echo "Error: Failed to install jq."
-        exit 1
-    fi
-    echo "jq installed successfully."
+echo "Installing jq..."
+
+# Update package repositories
+if ! sudo apt-get update; then
+echo "Error: Failed to update package repositories."
+exit 1
+fi
+
+# Install jq
+if sudo apt-get install jq -y; then
+echo "jq installed successfully."
+else
+echo "Error: Failed to install jq."
+exit 1
 fi
 
 # Determine the appropriate TUIC_FOLDER based on the user
