@@ -1,12 +1,19 @@
 #!/bin/bash
 # Install jq if not already installed
-if ! command -v jq &>/dev/null; then
-    echo "Installing jq..."
-    if ! sudo apt-get install jq -y; then
-        echo "Error: Failed to install jq."
-        exit 1
-    fi
-    echo "jq installed successfully."
+echo "Installing jq..."
+
+# Update package repositories
+if ! sudo apt-get update; then
+echo "Error: Failed to update package repositories."
+exit 1
+fi
+
+# Install jq
+if sudo apt-get install jq -y; then
+echo "jq installed successfully."
+else
+echo "Error: Failed to install jq."
+exit 1
 fi
 
 # Determine the appropriate TUIC_FOLDER based on the user
@@ -149,7 +156,10 @@ if [ $? -ne 0 ]; then
     echo "Error: Failed to get IPv6 address" 
     return
 fi
-
+# Get tuic service manager
+wget --no-check-certificate -O /usr/bin/tuic https://raw.githubusercontent.com/ErfanTech/tuic-setup/master/tuic.sh
+chmod +x /usr/local/tuic/tuic.sh
+chmod +x /usr/bin/tuic
 # Generate and print URLs
 IPV4_URL="tuic://$UUID:$PASSWORD@$IPV4:$PORT/?congestion_control=$CONGESTION_CONTROL&udp_relay_mode=native&alpn=h3,spdy/3.1&allow_insecure=1#Tuic"
 
