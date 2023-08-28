@@ -12,7 +12,7 @@ To use the script:
    curl -o tuic-setup.sh https://raw.githubusercontent.com/hrostami/tuic-setup/master/setup.sh && sudo bash tuic-setup.sh
    
    ```
-2. Follow the prompts to enter a port number 
+2. Follow the prompts to enter a port number, password and congestion_control
 
 3. The script will install dependencies, generate certs, create a config, and start the TUIC service
 
