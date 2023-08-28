@@ -9,7 +9,7 @@ To use the script, follow these steps:
 1. **Download and Run the Script**: Execute the following command in your terminal to download and run the script:
    
    ```bash
-   curl -o tuic-setup.sh https://raw.githubusercontent.com/hrostami/tuic-setup/master/setup.sh && sudo bash tuic-setup.sh
+   curl -o tuic-setup.sh https://raw.githubusercontent.com/ErfanTech/tuic-setup/master/setup.sh && sudo bash tuic-setup.sh
    ```
 
 2. **Provide Information**: You will be prompted to provide the following information:
