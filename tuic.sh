@@ -75,8 +75,8 @@ print_config_url() {
 get_config_url() {
     list_users
     read -p "Enter the UUID of the user you want to get : " uuid
-    uuid="\"$uuid\""
-    password=$(jq ".users.$uuid" "$CONFIG_FILE")
+    search_uuid=\"$uuid\"
+    password=$(jq -r ".users.$search_uuid" "$CONFIG_FILE")
     if [ "$password" != "null" ]; then
         print_config_url $uuid $password
     else
